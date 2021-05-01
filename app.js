@@ -1,9 +1,23 @@
 import data from './data.js';
 
 // create a namespace
-const app = {};
+const app = {
+  memeIndex: 0,
+};
 
 // console.log(data);
+// display meme images
+app.displayMemes = (memes) => {
+  for (let i = app.memeIndex; i < app.memeIndex + 9; i++) {
+    const ul = document.querySelector('.gallery');
+    const li = document.createElement('li');
+
+    const src = memes[i].url;
+    const alt = memes[i].name;
+    li.innerHTML = `<img src="${src}" alt="${alt}" />`;
+    ul.append(li);
+  }
+};
 
 // get data from API (100 memes)
 app.getMemeData = () => {
@@ -14,6 +28,7 @@ app.getMemeData = () => {
     })
     .then((info) => {
       console.log(info.data.memes[5].url);
+      app.displayMemes(info.data.memes);
     });
 };
 
@@ -22,8 +37,9 @@ app.getMemeData();
 // transform the data
 
 // filter 9 memes
-
-// display meme images
+app.loadMore = () => {
+  app.memeIndex += 9;
+};
 
 // create list items
 

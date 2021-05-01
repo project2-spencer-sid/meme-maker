@@ -10,11 +10,13 @@ const app = {
 app.displayMemes = (memes) => {
   for (let i = app.memeIndex; i < app.memeIndex + 9; i++) {
     const ul = document.querySelector('.gallery');
+
     const li = document.createElement('li');
+    li.className = 'galleryItem';
 
     const src = memes[i].url;
     const alt = memes[i].name;
-    li.innerHTML = `<img src="${src}" alt="${alt}" />`;
+    li.innerHTML = `<img class="imgBox" src="${src}" alt="${alt}" />`;
     ul.append(li);
   }
 };

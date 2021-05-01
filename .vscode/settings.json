@@ -1,0 +1,26 @@
+{
+  "liveSassCompile.settings.excludeList": ["**/node_modules/**", ".vscode/**"],
+  // Set your exported CSS Styles, Formats & save location.
+  "liveSassCompile.settings.formats": [
+    {
+      "format": "expanded",
+      "extensionName": ".css",
+      "savePath": "/dist/css"
+    },
+    {
+      "extensionName": ".min.css",
+      "format": "compressed",
+      "savePath": "/dist/css"
+    }
+  ],
+  // Set it as `false` if you don't want `.map` file for compiled CSS.
+  // Default is `true`
+  "liveSassCompile.settings.generateMap": false,
+  // This setting is useful when you deals with only few of sass files. Only mentioned Sass files will be included.
+  // NOTE: No need to include partial sass files.
+  "liveSassCompile.settings.includeItems": null,
+  // Set this to `false` if you do not want the output window to show.
+  // Note: You can use the command palette to open the Live Sass output window.
+  // Default is `true`
+  "liveSassCompile.settings.showOutputWindow": true
+}

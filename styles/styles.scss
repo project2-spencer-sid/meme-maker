@@ -1,59 +1,117 @@
-@import "setup.scss";
-@import "variables.scss";
+@import 'setup.scss';
+@import 'variables.scss';
 
 html {
-    font-size: 62.5%;
+  font-size: 62.5%;
 }
 
 body {
-    font-size: 2rem;
-    font-family: Arial, Helvetica, sans-serif;
-    background: $offWhite;
+  font-size: 2rem;
+  font-family: Arial, Helvetica, sans-serif;
+  background: $offWhite;
+}
+
+li {
+  list-style: none;
 }
 
 header {
-    display: flex;
-    justify-content: center;
-    // height: 10rem;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  // height: 10rem;
+  align-items: center;
 }
 
 h1 {
-    // display: inline-block;
-    font-size: 6rem;
-    text-align: center;
-    margin: auto;
+  // display: inline-block;
+  font-size: 6rem;
+  text-align: center;
+  margin: auto;
 }
 
 .titleContainer {
-    // display: inline-block;
-    margin: auto;
-    margin-top: 30px;
-    border: 2px solid black;
-    padding: 2rem;
+  // display: inline-block;
+  margin: auto;
+  margin-top: 30px;
+  border: 2px solid black;
+  padding: 2rem;
+}
+
+.wrapper {
+  max-width: 1000px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.galleryItem {
+  margin: 30px 10px;
+  width: 212px;
+}
+
+img {
+  width: 200px;
+  height: 200px;
+  display: block;
+  object-fit: cover;
+}
+
+.imgBox {
+  border: 6px solid #ffce00;
+}
+
+@media (max-width: 780px) {
+  .results {
+    justify-content: space-evenly;
+  }
+}
+
+@media (max-width: 690px) {
+  header {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 375px) {
+  form {
+    text-align: center;
+  }
+
+  input {
+    width: 100%;
+  }
+
+  input[type='text'] {
+    margin: 0;
+  }
 }
 
 button {
-    font-size: inherit;
-    background: transparent;
-    padding: 10px;
-    &:hover {
-        cursor: pointer;
-        background: lightblue;
-    }
+  font-size: inherit;
+  background: transparent;
+  padding: 10px;
+  &:hover {
+    cursor: pointer;
+    background: lightblue;
+  }
 }
 
 .buttonContainer {
-    text-align: center;
+  text-align: center;
 }
 
 footer {
-    text-align: center;
-    color: $offWhite;
-    background: black;
-    padding: 10px;
-    p {
-        margin: 0;
-    }
+  text-align: center;
+  color: $offWhite;
+  background: black;
+  padding: 10px;
+  p {
+    margin: 0;
+  }
 }
-

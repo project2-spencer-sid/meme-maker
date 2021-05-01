@@ -31,6 +31,13 @@ app.getMemeData = () => {
     .then((info) => {
       console.log(info.data.memes[5].url);
       app.displayMemes(info.data.memes);
+
+      // add event listener to "load more" button
+      const loadMoreButton = document.querySelector('.loadButton');
+      loadMoreButton.addEventListener('click', function () {
+        app.loadMore();
+        app.displayMemes(info.data.memes);
+      });
     });
 };
 

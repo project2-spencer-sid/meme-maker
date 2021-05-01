@@ -1,0 +1,59 @@
+@import "setup.scss";
+@import "variables.scss";
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-size: 2rem;
+    font-family: Arial, Helvetica, sans-serif;
+    background: $offWhite;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    // height: 10rem;
+    align-items: center;
+}
+
+h1 {
+    // display: inline-block;
+    font-size: 6rem;
+    text-align: center;
+    margin: auto;
+}
+
+.titleContainer {
+    // display: inline-block;
+    margin: auto;
+    margin-top: 30px;
+    border: 2px solid black;
+    padding: 2rem;
+}
+
+button {
+    font-size: inherit;
+    background: transparent;
+    padding: 10px;
+    &:hover {
+        cursor: pointer;
+        background: lightblue;
+    }
+}
+
+.buttonContainer {
+    text-align: center;
+}
+
+footer {
+    text-align: center;
+    color: $offWhite;
+    background: black;
+    padding: 10px;
+    p {
+        margin: 0;
+    }
+}
+

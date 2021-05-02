@@ -24,6 +24,7 @@ app.displayMemes = (memes) => {
 
     li.setAttribute("data-url", src);
     li.setAttribute("data-template_id",memeId);
+    li.setAttribute("data-name", alt);
 
     // console.log(memeId);
     
@@ -41,7 +42,7 @@ app.getMemeData = () => {
       return response.json();
     })
     .then((info) => {
-      console.log(info.data.memes[5].url);
+      // console.log(info.data.memes[5].url);
       app.displayMemes(info.data.memes);
 
       // add event listener to "load more" button
@@ -62,6 +63,17 @@ app.loadMore = () => {
   app.memeIndex += 9;
 };
 
+// function to display image in modal
+const displayModalImage = function(dataset) {
+  const source = dataset.url;
+  const title = dataset.name;
+  const img = document.createElement('img');
+  img.src = source;
+  img.alt = title;
+  const modalImageContainer = document.querySelector('.modalImageContainer');
+  console.log(source, title);
+  modalImageContainer.appendChild(img);
+}
 
 
 // bind event listeners to the elements (meme image elements, captioned image, and buttons)
@@ -72,7 +84,9 @@ galleryUl.addEventListener('click', function(event){
   if (liTarget.tagName==='LI'){
     console.log("list item has been clicked");
     console.log(liTarget.dataset);
-    submitModal.style.display = 'block';
+    submitModal.style.display = 'flex';
+    displayModalImage(liTarget.dataset);
+    // modal.style.display = 'block';
   }
 })
 

@@ -33,7 +33,7 @@ h1 {
   // display: inline-block;
   margin: auto;
   margin-top: 30px;
-  border: 2px solid black;
+  border: $borderWidth solid $offBlack;
   padding: 2rem;
 }
 
@@ -63,7 +63,7 @@ img {
 }
 
 .imgBox {
-  border: 6px solid #ffce00;
+  border: $borderWidth solid $offBlack;
 }
 
 @media (max-width: 780px) {

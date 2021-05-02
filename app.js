@@ -8,6 +8,7 @@ const app = {
 const galleryUl = document.querySelector('.gallery');
 const saveModal = document.querySelector('.saveModal');
 const submitModal = document.querySelector('.submitModal');
+const closeButton = document.querySelector('.closeButton');
 
 // console.log(data);
 // display meme images
@@ -67,12 +68,14 @@ app.loadMore = () => {
 const displayModalImage = function(dataset) {
   const source = dataset.url;
   const title = dataset.name;
-  const img = document.createElement('img');
-  img.src = source;
-  img.alt = title;
+  // const img = document.createElement('img');
+  // img.src = source;
+  // img.alt = title;
   const modalImageContainer = document.querySelector('.modalImageContainer');
   console.log(source, title);
-  modalImageContainer.appendChild(img);
+  modalImageContainer.innerHTML=`<img src="${source}" alt="${title}">`;
+
+  // modalImageContainer.appendChild(img);
 }
 
 
@@ -84,11 +87,16 @@ galleryUl.addEventListener('click', function(event){
   if (liTarget.tagName==='LI'){
     console.log("list item has been clicked");
     console.log(liTarget.dataset);
-    submitModal.style.display = 'flex';
+    submitModal.classList.add('show');
     displayModalImage(liTarget.dataset);
     // modal.style.display = 'block';
   }
 })
+
+closeButton.addEventListener('click', function(){
+  submitModal.classList.remove('show');
+})
+
 
 // display the form to the user
 

@@ -245,6 +245,10 @@ html {
   align-items: center;
 }
 
+.modal.show {
+  display: flex;
+}
+
 .modalWrapper {
   height: 500px;
   width: 500px;

@@ -2,6 +2,8 @@
     display: none;
 }
 
+
+
 .modal {
     position: fixed;
     z-index: 5;
@@ -13,6 +15,9 @@
     display: none;
     justify-content: center;
     align-items: center;
+    &.show {
+    display: flex;
+    }   
 }
 
 .modalWrapper {

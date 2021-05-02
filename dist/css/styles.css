@@ -228,6 +228,10 @@ html {
   overflow: hidden;
 }
 
+.submitModal, .saveModal {
+  display: none;
+}
+
 html {
   font-size: 62.5%;
 }

@@ -5,19 +5,31 @@ const app = {
   memeIndex: 0,
 };
 
+const galleryUl = document.querySelector('.gallery');
+const saveModal = document.querySelector('.saveModal');
+const submitModal = document.querySelector('.submitModal');
+
 // console.log(data);
 // display meme images
 app.displayMemes = (memes) => {
   for (let i = app.memeIndex; i < app.memeIndex + 9; i++) {
-    const ul = document.querySelector('.gallery');
 
+    // create list items
     const li = document.createElement('li');
     li.className = 'galleryItem';
-
+    
     const src = memes[i].url;
     const alt = memes[i].name;
+    const memeId = memes[i].id;
+
+    li.setAttribute("data-url", src);
+    li.setAttribute("data-template_id",memeId);
+
+    // console.log(memeId);
+    
     li.innerHTML = `<img class="imgBox" src="${src}" alt="${alt}" />`;
-    ul.append(li);
+    // append list items to ul
+    galleryUl.append(li);
   }
 };
 
@@ -50,11 +62,19 @@ app.loadMore = () => {
   app.memeIndex += 9;
 };
 
-// create list items
 
-// append list items to ul
 
 // bind event listeners to the elements (meme image elements, captioned image, and buttons)
+galleryUl.addEventListener('click', function(event){
+  console.log("event listener works");
+  console.log(event.target.tagName);
+  const liTarget = event.target.parentElement;
+  if (liTarget.tagName==='LI'){
+    console.log("list item has been clicked");
+    console.log(liTarget.dataset);
+    submitModal.style.display = 'block';
+  }
+})
 
 // display the form to the user
 

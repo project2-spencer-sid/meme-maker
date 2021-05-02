@@ -23,5 +23,24 @@
 .modalWrapper {
     height: 500px;
     width: 500px;
+    padding-top: 20px;
     background: rgba($color: #000000, $alpha: 0.5);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.closeButton {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    background: red;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 50%;
 }

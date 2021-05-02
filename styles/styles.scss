@@ -67,6 +67,10 @@ img {
   border: $borderWidth solid $offBlack;
 }
 
+button {
+  background: red;
+}
+
 @media (max-width: 780px) {
   .results {
     justify-content: space-evenly;
@@ -95,7 +99,7 @@ img {
 
 button {
   font-size: inherit;
-  background: transparent;
+  background: red;
   padding: 10px;
   &:hover {
     cursor: pointer;

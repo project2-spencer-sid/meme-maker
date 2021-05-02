@@ -252,7 +252,26 @@ html {
 .modalWrapper {
   height: 500px;
   width: 500px;
+  padding-top: 20px;
   background: rgba(0, 0, 0, 0.5);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.closeButton {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  background: red;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 50%;
 }
 
 html {
@@ -317,6 +336,10 @@ img {
   border: 6px solid #313639;
 }
 
+button {
+  background: red;
+}
+
 @media (max-width: 780px) {
   .results {
     justify-content: space-evenly;
@@ -343,7 +366,7 @@ img {
 
 button {
   font-size: inherit;
-  background: transparent;
+  background: red;
   padding: 10px;
 }
 

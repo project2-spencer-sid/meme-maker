@@ -30,7 +30,7 @@
             <div class="modalWrapper">
                 <button class="closeButton">X</button>
                 <div class="modalImageContainer">
-                <!-- selected meme goes here -->
+                    <!-- selected meme goes here -->
                 </div>
                 <form action="" class="captions">
                     <input class="topText" type="text" id="topText" placeholder="Top Caption">
@@ -38,27 +38,31 @@
                     <input class="bottomText" type="text" id="bottomText" placeholder="Bottom Caption">
                     <label for="bottomText" class="sr-only">Bottom Text</label>
                     <button class="button" type="submit">Submit</button>
-                    <a class="button" href="#" target="_blank">See meme in new tab</a>
+                    <button id="saveButton" class="button saveButton" type="button">See meme in new tab</button>
                 </form>
             </div>
         </section>
-        <section class="saveModal modal">
+        <!-- <section class="saveModal modal">
             <div class="modalWrapper">
                 <button class="closeButton">X</button>
-                <div class="modalImageContainer">
-                    <!-- selected meme goes here -->
-                </div>
+                <div class="modalImageContainer"> -->
+        <!-- selected meme goes here -->
+        <!-- </div>
             </div>
-        </section>
+        </section> -->
     </main>
     <footer>
         <p>Spencer and Sid Productions</p>
         <p>Created at Juno College 2021</p>
     </footer>
 
+    <!-- FileSaver.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"
+        integrity="sha512-csNcFYJniKjJxRWRV1R7fvnXrycHP6qDR21mgz1ZP55xY5d+aHLfo9/FcGDQLfn2IfngbAHd8LdfsagcCqgTcQ=="
+        crossorigin="anonymous"></script>
+    <!-- Script -->
     <script src="app.js" type="module"></script>
 
 </body>
 
 </html>
-

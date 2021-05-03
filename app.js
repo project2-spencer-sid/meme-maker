@@ -7,19 +7,19 @@ const app = {
   memeIndex: 0,
 };
 
-
 const galleryUl = document.querySelector('.gallery');
 const saveModal = document.querySelector('.saveModal');
 const submitModal = document.querySelector('.submitModal');
 const closeButton = document.querySelector('.closeButton');
-
 const topCaption = document.getElementById('topText');
 const bottomCaption = document.getElementById('bottomText');
+const loadMoreButton = document.querySelector('.loadButton');
+const saveButton = document.getElementById('saveButton');
 
 // form clearing function
-function clearInput (){
-  topCaption.value='';
-  bottomCaption.value='';
+function clearInput() {
+  topCaption.value = '';
+  bottomCaption.value = '';
 }
 // console.log(data);
 // display meme images
@@ -98,6 +98,7 @@ galleryUl.addEventListener('click', function (event) {
     const title = imgElem.alt;
     displayModalImage(source, title);
     app.selectedMemeId = imgElem.parentElement.dataset.template_id;
+    app.selectedMemeName = title;
     console.log(app.selectedMemeId);
     // modal.style.display = 'block';
   }
@@ -105,55 +106,73 @@ galleryUl.addEventListener('click', function (event) {
 
 closeButton.addEventListener('click', function () {
   submitModal.classList.remove('show');
+  hideSaveButton();
 });
 
-// display the form to the user
+function showSaveButton() {
+  saveButton.classList.add('show');
+}
 
+function hideSaveButton() {
+  saveButton.classList.remove('show');
+}
+
+// display the form to the user
 // get form input values from user and send them to API
 
 const captionsForm = document.querySelector('.captions');
-captionsForm.addEventListener('submit', function(event) {
+captionsForm.addEventListener('submit', function (event) {
   event.preventDefault();
- 
-  
+  const formElement = document.querySelector('form.captions');
+
   const url = new URL('https://api.imgflip.com/caption_image');
-  url.search = new URLSearchParams({
+  const data = new URLSearchParams({
     text0: topCaption.value,
     text1: bottomCaption.value,
     template_id: app.selectedMemeId,
     username: userData.username,
     password: userData.password,
-  })
+  });
   console.log(topCaption.value);
   console.log(bottomCaption.value);
 
-// // Example POST method implementation:
-  const data = {
-    
-    username: userData.username,
-    password: userData.password,
-  }
+  // // Example POST method implementation:
+  // for (const pair of new FormData(formElement)) {
+  //   data.append(pair[0], pair[1]);
+  // }
+
+  // console.log(formElement);
+  // const data = new URLSearchParams(new FormData(formElement));
 
   console.log(data);
   // Default options are marked with *
   fetch(url, {
     method: 'POST', // *GET, POST, PUT, DELETE, etc.
     // TODO: get private info passed through the body, not search params
-    body: JSON.stringify(data) // body data type must match "Content-Type" header
-  }).then((response) => {
+    body: data, // body data type must match "Content-Type" header
+  })
+    .then((response) => {
       console.log(response);
-      
+
       return response.json();
-    }).then((jsonResponse) => {
-
-      console.log(jsonResponse);
-      displayModalImage(jsonResponse.data.url,'testtitle');
     })
+    .then((jsonResponse) => {
+      console.log(jsonResponse);
+      const captionedUrl = jsonResponse.data.url;
+      displayModalImage(captionedUrl, 'testtitle');
+      app.captionedUrl = captionedUrl;
+    });
+
   clearInput();
+  showSaveButton();
+});
 
- })
+// implement download/email functionalities
 
-
+saveButton.addEventListener('click', function () {
+  // save image file to the local disk with FileSaver.js
+  saveAs(app.captionedUrl, app.selectedMemeName);
+});
 
 // get response (captioned meme) from API
 
@@ -161,14 +180,12 @@ captionsForm.addEventListener('submit', function(event) {
 
 // display download/email buttons
 
-// implement download/email functionalities
-
 // declare init function
-// call the init()
 
 // add event listener to "load more" button
-const loadMoreButton = document.querySelector('.loadButton');
 loadMoreButton.addEventListener('click', function () {
   app.loadMore();
   app.displayMemes(app.memes);
 });
+
+// call the init()

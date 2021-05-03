@@ -235,7 +235,8 @@ html {
   overflow: hidden;
 }
 
-.submitModal, .saveModal {
+.submitModal,
+.saveModal {
   display: none;
 }
 
@@ -254,6 +255,7 @@ html {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  background: rgba(255, 255, 255, 0.7);
 }
 
 .modal.show {
@@ -263,10 +265,10 @@ html {
 }
 
 .modalWrapper {
-  height: 500px;
-  width: 500px;
+  min-width: 320px;
   padding-top: 20px;
-  background: rgba(0, 0, 0, 0.5);
+  background: white;
+  border: 6px solid black;
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -278,6 +280,22 @@ html {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  height: 70%;
+}
+
+.modalWrapper .modalImageContainer {
+  border: 3px solid;
+  margin: 3rem auto 2rem;
+  width: 90%;
+  height: 50%;
+}
+
+.modalWrapper .modalImageContainer img {
+  margin: auto;
+  max-width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .closeButton {
@@ -285,6 +303,18 @@ html {
   right: 5px;
   top: 5px;
   background: red;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 form {
@@ -295,9 +325,10 @@ form {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 90%;
   height: 50%;
 }
 
@@ -365,12 +396,21 @@ h1 {
   width: 212px;
 }
 
-img {
+.gallery img {
   width: 200px;
   height: 200px;
   display: block;
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+img {
+  display: block;
+}
+
+input {
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
 .imgBox {
@@ -379,35 +419,6 @@ img {
 
 button {
   background: red;
-}
-
-@media (max-width: 780px) {
-  .results {
-    -webkit-box-pack: space-evenly;
-        -ms-flex-pack: space-evenly;
-            justify-content: space-evenly;
-  }
-}
-
-@media (max-width: 690px) {
-  header {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-  }
-}
-
-@media (max-width: 375px) {
-  form {
-    text-align: center;
-  }
-  input {
-    width: 100%;
-  }
-  input[type='text'] {
-    margin: 0;
-  }
 }
 
 button {

@@ -56,11 +56,20 @@ h1 {
   width: 212px;
 }
 
-img {
+.gallery img {
   width: 200px;
   height: 200px;
   display: block;
   object-fit: cover;
+}
+
+img {
+  display: block;
+}
+
+input {
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
 .imgBox {
@@ -71,31 +80,31 @@ button {
   background: red;
 }
 
-@media (max-width: 780px) {
-  .results {
-    justify-content: space-evenly;
-  }
-}
+// @media (max-width: 780px) {
+//   .results {
+//     justify-content: space-evenly;
+//   }
+// }
 
-@media (max-width: 690px) {
-  header {
-    flex-direction: column;
-  }
-}
+// @media (max-width: 690px) {
+//   header {
+//     flex-direction: column;
+//   }
+// }
 
-@media (max-width: 375px) {
-  form {
-    text-align: center;
-  }
+// @media (max-width: 375px) {
+//   form {
+//     text-align: center;
+//   }
 
-  input {
-    width: 100%;
-  }
+//   input {
+//     width: 100%;
+//   }
 
-  input[type='text'] {
-    margin: 0;
-  }
-}
+//   input[type='text'] {
+//     margin: 0;
+//   }
+// }
 
 button {
   font-size: inherit;

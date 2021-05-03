@@ -24,6 +24,8 @@ function clearInput() {
 // console.log(data);
 // display meme images
 app.displayMemes = (memes) => {
+  if (app.memeIndex > 99) return;
+
   for (let i = app.memeIndex; i < app.memeIndex + 9; i++) {
     // create list items
     const li = document.createElement('li');
@@ -39,6 +41,7 @@ app.displayMemes = (memes) => {
 
     // console.log(memeId);
 
+    // transform the data
     li.innerHTML = `<img class="imgBox" src="${src}" alt="${alt}" />`;
     // append list items to ul
     galleryUl.append(li);
@@ -62,12 +65,18 @@ app.getMemeData = () => {
 
 app.getMemeData();
 
-// transform the data
+function hideLoadMoreButton() {
+  loadMoreButton.classList.add('hide');
+}
 
 // filter 9 memes
 app.loadMore = () => {
   // display memes so that they're displayed evenly on screen (e.g. 2 x 4)
   app.memeIndex += 9;
+  console.log(app.memeIndex);
+  if (app.memeIndex >= 99) {
+    hideLoadMoreButton();
+  }
 };
 
 // function to display image in modal

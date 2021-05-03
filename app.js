@@ -1,15 +1,26 @@
 import data from './data.js';
+import userData from './env.js';
 
+console.log(userData);
 // create a namespace
 const app = {
   memeIndex: 0,
 };
+
 
 const galleryUl = document.querySelector('.gallery');
 const saveModal = document.querySelector('.saveModal');
 const submitModal = document.querySelector('.submitModal');
 const closeButton = document.querySelector('.closeButton');
 
+const topCaption = document.getElementById('topText');
+const bottomCaption = document.getElementById('bottomText');
+
+// form clearing function
+function clearInput (){
+  topCaption.value='';
+  bottomCaption.value='';
+}
 // console.log(data);
 // display meme images
 app.displayMemes = (memes) => {
@@ -86,6 +97,8 @@ galleryUl.addEventListener('click', function (event) {
     const source = imgElem.src;
     const title = imgElem.alt;
     displayModalImage(source, title);
+    app.selectedMemeId = imgElem.parentElement.dataset.template_id;
+    console.log(app.selectedMemeId);
     // modal.style.display = 'block';
   }
 });
@@ -97,6 +110,50 @@ closeButton.addEventListener('click', function () {
 // display the form to the user
 
 // get form input values from user and send them to API
+
+const captionsForm = document.querySelector('.captions');
+captionsForm.addEventListener('submit', function(event) {
+  event.preventDefault();
+ 
+  
+  const url = new URL('https://api.imgflip.com/caption_image');
+  url.search = new URLSearchParams({
+    text0: topCaption.value,
+    text1: bottomCaption.value,
+    template_id: app.selectedMemeId,
+    username: userData.username,
+    password: userData.password,
+  })
+  console.log(topCaption.value);
+  console.log(bottomCaption.value);
+
+// // Example POST method implementation:
+  const data = {
+    
+    username: userData.username,
+    password: userData.password,
+  }
+
+  console.log(data);
+  // Default options are marked with *
+  fetch(url, {
+    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    // TODO: get private info passed through the body, not search params
+    body: JSON.stringify(data) // body data type must match "Content-Type" header
+  }).then((response) => {
+      console.log(response);
+      
+      return response.json();
+    }).then((jsonResponse) => {
+
+      console.log(jsonResponse);
+      displayModalImage(jsonResponse.data.url,'testtitle');
+    })
+  clearInput();
+
+ })
+
+
 
 // get response (captioned meme) from API
 

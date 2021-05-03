@@ -14,21 +14,20 @@ const closeButton = document.querySelector('.closeButton');
 // display meme images
 app.displayMemes = (memes) => {
   for (let i = app.memeIndex; i < app.memeIndex + 9; i++) {
-
     // create list items
     const li = document.createElement('li');
     li.className = 'galleryItem';
-    
+
     const src = memes[i].url;
     const alt = memes[i].name;
     const memeId = memes[i].id;
 
-    li.setAttribute("data-url", src);
-    li.setAttribute("data-template_id",memeId);
-    li.setAttribute("data-name", alt);
+    // li.setAttribute('data-url', src);
+    // li.setAttribute('data-name', alt);
+    li.setAttribute('data-template_id', memeId);
 
     // console.log(memeId);
-    
+
     li.innerHTML = `<img class="imgBox" src="${src}" alt="${alt}" />`;
     // append list items to ul
     galleryUl.append(li);
@@ -45,13 +44,8 @@ app.getMemeData = () => {
     .then((info) => {
       // console.log(info.data.memes[5].url);
       app.displayMemes(info.data.memes);
-
-      // add event listener to "load more" button
-      const loadMoreButton = document.querySelector('.loadButton');
-      loadMoreButton.addEventListener('click', function () {
-        app.loadMore();
-        app.displayMemes(info.data.memes);
-      });
+      // cache memes data into namespace
+      app.memes = info.data.memes;
     });
 };
 
@@ -61,42 +55,44 @@ app.getMemeData();
 
 // filter 9 memes
 app.loadMore = () => {
+  // display memes so that they're displayed evenly on screen (e.g. 2 x 4)
   app.memeIndex += 9;
 };
 
 // function to display image in modal
-const displayModalImage = function(dataset) {
-  const source = dataset.url;
-  const title = dataset.name;
+const displayModalImage = function (source, title) {
+  // const source = dataset.url;
+  // const title = dataset.name;
   // const img = document.createElement('img');
   // img.src = source;
   // img.alt = title;
   const modalImageContainer = document.querySelector('.modalImageContainer');
   console.log(source, title);
-  modalImageContainer.innerHTML=`<img src="${source}" alt="${title}">`;
+  modalImageContainer.innerHTML = `<img src="${source}" alt="${title}">`;
 
   // modalImageContainer.appendChild(img);
-}
-
+};
 
 // bind event listeners to the elements (meme image elements, captioned image, and buttons)
-galleryUl.addEventListener('click', function(event){
-  console.log("event listener works");
-  console.log(event.target.tagName);
-  const liTarget = event.target.parentElement;
-  if (liTarget.tagName==='LI'){
-    console.log("list item has been clicked");
-    console.log(liTarget.dataset);
+galleryUl.addEventListener('click', function (event) {
+  // console.log('event listener works');
+  // console.log(event.target.tagName);
+  // const liTarget = event.target.parentElement;
+  const imgElem = event.target;
+  if (imgElem.tagName === 'IMG') {
+    console.log('list item has been clicked');
+    // console.log(liTarget.dataset);
     submitModal.classList.add('show');
-    displayModalImage(liTarget.dataset);
+    const source = imgElem.src;
+    const title = imgElem.alt;
+    displayModalImage(source, title);
     // modal.style.display = 'block';
   }
-})
+});
 
-closeButton.addEventListener('click', function(){
+closeButton.addEventListener('click', function () {
   submitModal.classList.remove('show');
-})
-
+});
 
 // display the form to the user
 
@@ -112,3 +108,10 @@ closeButton.addEventListener('click', function(){
 
 // declare init function
 // call the init()
+
+// add event listener to "load more" button
+const loadMoreButton = document.querySelector('.loadButton');
+loadMoreButton.addEventListener('click', function () {
+  app.loadMore();
+  app.displayMemes(app.memes);
+});

@@ -1,7 +1,7 @@
 import data from './data.js';
 import userData from './env.js';
 
-console.log(userData);
+// console.log(userData);
 // create a namespace
 const app = {
   memeIndex: 0,
@@ -24,16 +24,26 @@ function clearInput() {
 // console.log(data);
 // display meme images
 app.displayMemes = (memes) => {
-  if (app.memeIndex > 99) return;
+  // if (app.memeIndex > app.memes.length - 1) return;
+  console.log('displayMemes');
+  const startingMemeIndex = app.memeIndex;
 
-  for (let i = app.memeIndex; i < app.memeIndex + 9; i++) {
+  for (let i = 0; i < 9; i++) {
+    const currentMemeIndex = startingMemeIndex + i;
+    console.log({
+      i,
+      startingMemeIndex,
+      currentMemeIndex,
+      length: app.memes.length,
+    });
+
     // create list items
     const li = document.createElement('li');
     li.className = 'galleryItem';
 
-    const src = memes[i].url;
-    const alt = memes[i].name;
-    const memeId = memes[i].id;
+    const src = memes[currentMemeIndex].url;
+    const alt = memes[currentMemeIndex].name;
+    const memeId = memes[currentMemeIndex].id;
 
     // li.setAttribute('data-url', src);
     // li.setAttribute('data-name', alt);
@@ -45,6 +55,11 @@ app.displayMemes = (memes) => {
     li.innerHTML = `<img class="imgBox" src="${src}" alt="${alt}" />`;
     // append list items to ul
     galleryUl.append(li);
+
+    // break out of for loop after displaying the last meme in the memes array
+    if (currentMemeIndex === app.memes.length - 1) {
+      break;
+    }
   }
 };
 
@@ -56,10 +71,11 @@ app.getMemeData = () => {
       return response.json();
     })
     .then((info) => {
-      // console.log(info.data.memes[5].url);
-      app.displayMemes(info.data.memes);
       // cache memes data into namespace
       app.memes = info.data.memes;
+
+      // console.log(info.data.memes[5].url);
+      app.displayMemes(info.data.memes);
     });
 };
 

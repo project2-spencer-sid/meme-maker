@@ -28,14 +28,25 @@ function clearInput() {
 app.displayMemes = (memes) => {
   if (app.memeIndex > 99) return;
 
-  for (let i = app.memeIndex; i < app.memeIndex + app.memesPerPage; i++) {
+  const startingMemeIndex = app.memeIndex;
+
+  let currentMemeIndex = 0;
+  for (let i = currentMemeIndex; i < app.memesPerPage; i++) {
+    currentMemeIndex = startingMemeIndex + i;
+    console.log({
+      i,
+      startingMemeIndex,
+      currentMemeIndex,
+      length: memes.length,
+    });
+    
     // create list items
     const li = document.createElement('li');
     li.className = 'galleryItem';
 
-    const src = memes[i].url;
-    const alt = memes[i].name;
-    const memeId = memes[i].id;
+    const src = memes[currentMemeIndex].url;
+    const alt = memes[currentMemeIndex].name;
+    const memeId = memes[currentMemeIndex].id;
 
     // li.setAttribute('data-url', src);
     // li.setAttribute('data-name', alt);
@@ -47,7 +58,10 @@ app.displayMemes = (memes) => {
     li.innerHTML = `<img class="imgBox" src="${src}" alt="${alt}" />`;
     // append list items to ul
     galleryUl.append(li);
+    
+    if (currentMemeIndex>=(memes.length-1)) break;
   }
+  return currentMemeIndex;
 };
 
 // get data from API (100 memes)
@@ -72,13 +86,11 @@ function hideLoadMoreButton() {
 }
 
 // filter 9 memes
-app.loadMore = () => {
+app.incrementMemeIndex = () => {
   // display memes so that they're displayed evenly on screen (e.g. 2 x 4)
   app.memeIndex += app.memesPerPage;
   console.log(app.memeIndex);
-  if (app.memeIndex >= 99) {
-    hideLoadMoreButton();
-  }
+  
 };
 
 // function to display image in modal
@@ -195,8 +207,11 @@ saveButton.addEventListener('click', function () {
 
 // add event listener to "load more" button
 loadMoreButton.addEventListener('click', function () {
-  app.loadMore();
-  app.displayMemes(app.memes);
+  app.incrementMemeIndex();
+  const currentMemeIndex = app.displayMemes(app.memes);
+  if (currentMemeIndex >= (app.memes.length-1)) {
+    hideLoadMoreButton();
+  }
 });
 
 // call the init()

@@ -86,7 +86,7 @@ function hideLoadMoreButton() {
 }
 
 // filter 9 memes
-app.loadMore = () => {
+app.incrementMemeIndex = () => {
   // display memes so that they're displayed evenly on screen (e.g. 2 x 4)
   app.memeIndex += 9;
   console.log(app.memeIndex);
@@ -206,7 +206,7 @@ saveButton.addEventListener('click', function () {
 
 // add event listener to "load more" button
 loadMoreButton.addEventListener('click', function () {
-  app.loadMore();
+  app.incrementMemeIndex();
   // hide loadMore button when reached the end of list
   if (app.memeIndex >= app.memes.length - 1) {
     hideLoadMoreButton();

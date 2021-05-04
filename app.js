@@ -5,6 +5,7 @@ console.log(userData);
 // create a namespace
 const app = {
   memeIndex: 0,
+  memesPerPage: 8
 };
 
 const galleryUl = document.querySelector('.gallery');
@@ -16,6 +17,7 @@ const bottomCaption = document.getElementById('bottomText');
 const loadMoreButton = document.querySelector('.loadButton');
 const saveButton = document.getElementById('saveButton');
 
+
 // form clearing function
 function clearInput() {
   topCaption.value = '';
@@ -26,7 +28,7 @@ function clearInput() {
 app.displayMemes = (memes) => {
   if (app.memeIndex > 99) return;
 
-  for (let i = app.memeIndex; i < app.memeIndex + 9; i++) {
+  for (let i = app.memeIndex; i < app.memeIndex + app.memesPerPage; i++) {
     // create list items
     const li = document.createElement('li');
     li.className = 'galleryItem';
@@ -72,7 +74,7 @@ function hideLoadMoreButton() {
 // filter 9 memes
 app.loadMore = () => {
   // display memes so that they're displayed evenly on screen (e.g. 2 x 4)
-  app.memeIndex += 9;
+  app.memeIndex += app.memesPerPage;
   console.log(app.memeIndex);
   if (app.memeIndex >= 99) {
     hideLoadMoreButton();

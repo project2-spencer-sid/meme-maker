@@ -90,9 +90,6 @@ app.loadMore = () => {
   // display memes so that they're displayed evenly on screen (e.g. 2 x 4)
   app.memeIndex += 9;
   console.log(app.memeIndex);
-  if (app.memeIndex >= 99) {
-    hideLoadMoreButton();
-  }
 };
 
 // function to display image in modal
@@ -210,6 +207,10 @@ saveButton.addEventListener('click', function () {
 // add event listener to "load more" button
 loadMoreButton.addEventListener('click', function () {
   app.loadMore();
+  // hide loadMore button when reached the end of list
+  if (app.memeIndex >= app.memes.length - 1) {
+    hideLoadMoreButton();
+  }
   app.displayMemes(app.memes);
 });
 

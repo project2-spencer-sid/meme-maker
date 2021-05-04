@@ -16,7 +16,8 @@ const topCaption = document.getElementById('topText');
 const bottomCaption = document.getElementById('bottomText');
 const loadMoreButton = document.querySelector('.loadButton');
 const saveButton = document.getElementById('saveButton');
-
+const captionsForm = document.querySelector('.captions');
+const submitButton = document.querySelector('.submitButton');
 
 // form clearing function
 function clearInput() {
@@ -143,8 +144,21 @@ function hideSaveButton() {
 // display the form to the user
 // get form input values from user and send them to API
 
-const captionsForm = document.querySelector('.captions');
+// add input validation - remove disabled attribute from submit button when either of the caption value is not empty
+captionsForm.addEventListener('input', (e) => {
+  console.log('input event, target:', e.target);
+  const firstInputValue = topCaption.value;
+  const secondInputValue = bottomCaption.value;
+  if (firstInputValue || secondInputValue) {
+    submitButton.removeAttribute('disabled');
+  } else {
+    submitButton.setAttribute('disabled', true);
+  }
+})
+
+
 captionsForm.addEventListener('submit', function (event) {
+  console.log
   event.preventDefault();
   const formElement = document.querySelector('form.captions');
 
@@ -167,6 +181,7 @@ captionsForm.addEventListener('submit', function (event) {
   // console.log(formElement);
   // const data = new URLSearchParams(new FormData(formElement));
 
+  // add input validation - remove disabled attribute from submit button when either of the caption value is not empty
   console.log(data);
   // Default options are marked with *
   fetch(url, {
@@ -184,6 +199,7 @@ captionsForm.addEventListener('submit', function (event) {
       const captionedUrl = jsonResponse.data.url;
       displayModalImage(captionedUrl, 'testtitle');
       app.captionedUrl = captionedUrl;
+      saveButton.removeAttribute('disabled');
     });
 
   clearInput();
@@ -194,6 +210,7 @@ captionsForm.addEventListener('submit', function (event) {
 
 saveButton.addEventListener('click', function () {
   // save image file to the local disk with FileSaver.js
+  const fileName = app.selectedMemeName
   saveAs(app.captionedUrl, app.selectedMemeName);
 });
 

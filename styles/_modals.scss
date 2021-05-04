@@ -33,7 +33,7 @@
     border: $borderWidth / 2 solid;
     margin: 3rem auto 2rem;
     width: 90%;
-    height: 50%;
+    height: 50%; // 50% of modal Wrapper
     img {
       margin: auto;
       max-width: 100%;
@@ -42,6 +42,17 @@
       height: 100%;
       object-fit: cover;
     }
+  }
+
+  form {
+    // this will be as tall as it needs to be;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 90%;
+    //   max-width: 90%;
+    // height: 50%; => makes form overflow because of the vertical margin set up in modalImageContainer which has also the height of 50%
+    // TODO: dog meme sponge bob meme don't have border-left on input elements
   }
 }
 
@@ -60,14 +71,4 @@
 
 .saveButton {
   display: none;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 90%;
-  //   max-width: 90%;
-  height: 50%;
-  // TODO: dog meme sponge bob meme don't have border-left on input elements
 }

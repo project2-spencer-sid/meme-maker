@@ -28,8 +28,9 @@ app.displayMemes = (memes) => {
   console.log('displayMemes');
   const startingMemeIndex = app.memeIndex;
 
+  let currentMemeIndex = 0;
   for (let i = 0; i < 9; i++) {
-    const currentMemeIndex = startingMemeIndex + i;
+    currentMemeIndex = startingMemeIndex + i;
     console.log({
       i,
       startingMemeIndex,
@@ -61,6 +62,7 @@ app.displayMemes = (memes) => {
       break;
     }
   }
+  return currentMemeIndex;
 };
 
 // get data from API (100 memes)
@@ -207,11 +209,13 @@ saveButton.addEventListener('click', function () {
 // add event listener to "load more" button
 loadMoreButton.addEventListener('click', function () {
   app.incrementMemeIndex();
+  const currentMemeIndex = app.displayMemes(app.memes);
+  console.log(`Done displayMemes. currentMemeIndex: ${currentMemeIndex}`);
   // hide loadMore button when reached the end of list
-  if (app.memeIndex >= app.memes.length - 1) {
+  if (currentMemeIndex >= app.memes.length - 1) {
+    console.log('Reached the end of memes array. Remove loadMore button');
     hideLoadMoreButton();
   }
-  app.displayMemes(app.memes);
 });
 
 // call the init()

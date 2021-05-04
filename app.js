@@ -1,5 +1,6 @@
 import data from './data.js';
 import userData from './env.js';
+import saveAs from './file-saver.js';
 
 console.log(userData);
 // create a namespace
@@ -180,7 +181,15 @@ captionsForm.addEventListener('submit', function (event) {
 
 saveButton.addEventListener('click', function () {
   // save image file to the local disk with FileSaver.js
-  saveAs(app.captionedUrl, app.selectedMemeName);
+  // saveAs(app.captionedUrl, app.selectedMemeName);
+  const saveMeme = () => {
+    saveAs(app.captionedUrl, app.selectedMemeName);
+  };
+  try {
+    saveMeme();
+  } catch (err) {
+    console.log('catch!!');
+  }
 });
 
 // get response (captioned meme) from API

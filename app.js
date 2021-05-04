@@ -13,6 +13,9 @@ const submitModal = document.querySelector('.submitModal');
 const closeButton = document.querySelector('.closeButton');
 const topCaption = document.getElementById('topText');
 const bottomCaption = document.getElementById('bottomText');
+const submitButton = document.querySelector(
+  '.submitModal button[type="submit"]'
+);
 const loadMoreButton = document.querySelector('.loadButton');
 const saveButton = document.getElementById('saveButton');
 
@@ -174,6 +177,18 @@ captionsForm.addEventListener('submit', function (event) {
 
   clearInput();
   showSaveButton();
+});
+
+// add input validation - remove disabled attribute from submit button when either of the caption value is not empty
+captionsForm.addEventListener('input', (e) => {
+  console.log('input event, target:', e.target);
+  const firstInputValue = topCaption.value;
+  const secondInputValue = bottomCaption.value;
+  if (firstInputValue || secondInputValue) {
+    submitButton.removeAttribute('disabled');
+  } else {
+    submitButton.setAttribute('disabled', true);
+  }
 });
 
 // implement download/email functionalities

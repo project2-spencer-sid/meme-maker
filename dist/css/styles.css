@@ -235,6 +235,12 @@ html {
   overflow: hidden;
 }
 
+:root {
+  --lg: 1075px;
+  --md: 815px;
+  --sm: 556px;
+}
+
 .submitModal,
 .saveModal {
   display: none;

@@ -5,7 +5,12 @@ console.log(userData);
 // create a namespace
 const app = {
   memeIndex: 0,
-  memesPerPage: 8
+  memesPerPage: 8,
+  bp: {
+    lg: 1075,
+    md: 815,
+    sm: 556,
+  },
 };
 
 const galleryUl = document.querySelector('.gallery');
@@ -18,6 +23,7 @@ const loadMoreButton = document.querySelector('.loadButton');
 const saveButton = document.getElementById('saveButton');
 const captionsForm = document.querySelector('.captions');
 const submitButton = document.querySelector('.submitButton');
+const appElement = document.querySelector('.app');
 
 // form clearing function
 function clearInput() {
@@ -34,13 +40,13 @@ app.displayMemes = (memes) => {
   let currentMemeIndex = 0;
   for (let i = currentMemeIndex; i < app.memesPerPage; i++) {
     currentMemeIndex = startingMemeIndex + i;
-    console.log({
-      i,
-      startingMemeIndex,
-      currentMemeIndex,
-      length: memes.length,
-    });
-    
+    // console.log({
+    //   i,
+    //   startingMemeIndex,
+    //   currentMemeIndex,
+    //   length: memes.length,
+    // });
+
     // create list items
     const li = document.createElement('li');
     li.className = 'galleryItem';
@@ -59,8 +65,8 @@ app.displayMemes = (memes) => {
     li.innerHTML = `<img class="imgBox" src="${src}" alt="${alt}" />`;
     // append list items to ul
     galleryUl.append(li);
-    
-    if (currentMemeIndex>=(memes.length-1)) break;
+
+    if (currentMemeIndex >= memes.length - 1) break;
   }
   return currentMemeIndex;
 };
@@ -91,7 +97,6 @@ app.incrementMemeIndex = () => {
   // display memes so that they're displayed evenly on screen (e.g. 2 x 4)
   app.memeIndex += app.memesPerPage;
   console.log(app.memeIndex);
-  
 };
 
 // function to display image in modal
@@ -154,11 +159,10 @@ captionsForm.addEventListener('input', (e) => {
   } else {
     submitButton.setAttribute('disabled', true);
   }
-})
-
+});
 
 captionsForm.addEventListener('submit', function (event) {
-  console.log
+  console.log;
   event.preventDefault();
   const formElement = document.querySelector('form.captions');
 
@@ -210,7 +214,7 @@ captionsForm.addEventListener('submit', function (event) {
 
 saveButton.addEventListener('click', function () {
   // save image file to the local disk with FileSaver.js
-  const fileName = app.selectedMemeName
+  const fileName = app.selectedMemeName;
   saveAs(app.captionedUrl, app.selectedMemeName);
 });
 
@@ -220,15 +224,33 @@ saveButton.addEventListener('click', function () {
 
 // display download/email buttons
 
-// declare init function
-
 // add event listener to "load more" button
 loadMoreButton.addEventListener('click', function () {
   app.incrementMemeIndex();
   const currentMemeIndex = app.displayMemes(app.memes);
-  if (currentMemeIndex >= (app.memes.length-1)) {
+  if (currentMemeIndex >= app.memes.length - 1) {
     hideLoadMoreButton();
   }
 });
 
+function updateMemesPerPage(width) {
+  if (width > app.bp.lg) {
+    app.memesPerPage = 8;
+  } else if (width > app.bp.md) {
+    app.memesPerPage = 9;
+  } else if (width > app.bp.sm) {
+    app.memesPerPage = 6;
+  } else {
+    app.memesPerPage = 4;
+  }
+}
+
+// declare init function
+app.init = () => {
+  const { width } = appElement.getBoundingClientRect();
+
+  updateMemesPerPage(width);
+};
+
 // call the init()
+app.init();

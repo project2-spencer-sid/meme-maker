@@ -265,8 +265,8 @@ html {
 }
 
 .modalWrapper {
-  width: 50%;
-  max-width: 1000px;
+  width: 90%;
+  max-width: 500px;
   padding-top: 20px;
   padding-bottom: 20px;
   background: white;
@@ -282,7 +282,7 @@ html {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  height: 90%;
+  height: 80%;
 }
 
 .modalWrapper .modalImageContainer {
@@ -304,11 +304,29 @@ html {
      object-fit: contain;
 }
 
+@media (max-width: 1075px) {
+  .modalWrapper {
+    height: 70%;
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 815px) {
+  .modalWrapper {
+    height: 60%;
+  }
+}
+
+@media (max-width: 556px) {
+  .modalWrapper {
+    height: 80%;
+  }
+}
+
 .closeButton {
   position: absolute;
   right: 5px;
   top: 5px;
-  background: red;
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -444,10 +462,6 @@ input {
   border: 6px solid #313639;
 }
 
-button {
-  background: red;
-}
-
 .show {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -455,6 +469,9 @@ button {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .hide {
@@ -463,13 +480,14 @@ button {
 
 .button {
   font-size: inherit;
-  background: red;
+  background: white;
   padding: 10px;
 }
 
-.button:hover {
+.button:not(:disabled):hover {
   cursor: pointer;
-  background: lightblue;
+  background: black;
+  color: white;
 }
 
 .buttonContainer {

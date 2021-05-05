@@ -20,8 +20,9 @@
 .modalWrapper {
   //   height: 500px;
   // min-width: 320px;
-  width: 50%;
-  max-width: 1000px;
+  width: 90%;
+  max-width: 500px;
+
   padding-top: 20px;
   padding-bottom: 20px;
   background: white;
@@ -30,7 +31,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 90%;
+  height: 80%;
 
   .modalImageContainer {
     border: $borderWidth / 2 solid;
@@ -48,13 +49,23 @@
       object-fit: contain;
     }
   }
+
+  @media (max-width: $lg) {
+    height: 70%;
+    max-width: 400px;
+  }
+  @media (max-width: $md) {
+    height: 60%;
+  }
+  @media (max-width: $sm) {
+    height: 80%;
+  }
 }
 
 .closeButton {
   position: absolute;
   right: 5px;
   top: 5px;
-  background: red;
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -72,11 +83,10 @@ form {
   flex-direction: column;
   justify-content: center;
   width: 90%;
-    button:not(:last-of-type) {
-      margin-bottom: 10px;
-    }
+  button:not(:last-of-type) {
+    margin-bottom: 10px;
+  }
   //   max-width: 90%;
   // height: 50%;
   // TODO: dog meme sponge bob meme don't have border-left on input elements
 }
-

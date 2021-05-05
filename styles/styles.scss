@@ -84,10 +84,6 @@ input {
   border: $borderWidth solid $offBlack;
 }
 
-button {
-  background: red;
-}
-
 // @media (max-width: 780px) {
 //   .results {
 //     justify-content: space-evenly;
@@ -117,6 +113,7 @@ button {
 .show {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .hide {
@@ -125,11 +122,13 @@ button {
 
 .button {
   font-size: inherit;
-  background: red;
+  background: $primary;
   padding: 10px;
-  &:hover {
+
+  &:not(:disabled):hover {
     cursor: pointer;
-    background: lightblue;
+    background: $secondary;
+    color: white;
   }
 }
 

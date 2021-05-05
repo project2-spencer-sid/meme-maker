@@ -16,6 +16,7 @@
             <div class="titleContainer">
                 <h1 class="title">Meme Maker</h1>
             </div>
+
         </header>
         <main>
             <div class="wrapper">
@@ -24,20 +25,20 @@
                 </ul>
             </div>
             <div class="buttonContainer">
-                <button class="loadButton">Load More</button>
+                <button class="loadButton button">Load More</button>
             </div>
 
             <section class="submitModal modal">
                 <div class="modalWrapper">
-                    <button class="closeButton">X</button>
+                    <button class="closeButton button">X</button>
                     <div class="modalImageContainer">
                         <!-- selected meme goes here -->
                     </div>
                     <form action="" class="captions">
-                        <input class="topText" type="text" id="topText" placeholder="Top Caption">
-                        <label for="topText" class="sr-only">Top Text</label>
-                        <input class="bottomText" type="text" id="bottomText" placeholder="Bottom Caption">
-                        <label for="bottomText" class="sr-only">Bottom Text</label>
+                        <input class="topText" type="text" id="topText" placeholder="First Caption">
+                        <label for="topText" class="sr-only">First Caption</label>
+                        <input class="bottomText" type="text" id="bottomText" placeholder="Second Caption">
+                        <label for="bottomText" class="sr-only">Second Caption</label>
                         <button class="button submitButton" type="submit" disabled>Add Captions</button>
                         <button id="saveButton" class="button saveButton" type="button" disabled>Save Meme</button>
                     </form>

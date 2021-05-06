@@ -11,7 +11,17 @@ const app = {
     md: 815,
     sm: 556,
   },
+  prewrittenCaptions: [
+    {text0: '1', text1: '1b'},
+    {text0: '2', text1: '2b'},
+    {text0: '3', text1: '3b'},
+    {text0: '4', text1: '4b'}
+  ],
+  generateCaptions: true,
+  selectedMemeName: ''
 };
+
+console.log(app.prewrittenCaptions[2].text1);
 
 const galleryUl = document.querySelector('.gallery');
 const saveModal = document.querySelector('.saveModal');
@@ -20,7 +30,7 @@ const closeButton = document.querySelector('.closeButton');
 const topCaption = document.getElementById('topText');
 const bottomCaption = document.getElementById('bottomText');
 const loadMoreButton = document.querySelector('.loadButton');
-const saveButton = document.getElementById('saveButton');
+// const saveButton = document.getElementById('saveButton');
 const captionsForm = document.querySelector('.captions');
 const submitButton = document.querySelector('.submitButton');
 const appElement = document.querySelector('.app');
@@ -135,41 +145,53 @@ galleryUl.addEventListener('click', function (event) {
 
 closeButton.addEventListener('click', function () {
   submitModal.classList.remove('show');
-  hideSaveButton();
+  // hideSaveButton();
 });
 
-function showSaveButton() {
-  saveButton.classList.add('show');
-}
+// function showSaveButton() {
+//   saveButton.classList.add('show');
+// }
 
-function hideSaveButton() {
-  saveButton.classList.remove('show');
-}
+// function hideSaveButton() {
+//   saveButton.classList.remove('show');
+// }
 
 // display the form to the user
 // get form input values from user and send them to API
 
 // add input validation - remove disabled attribute from submit button when either of the caption value is not empty
-captionsForm.addEventListener('input', (e) => {
-  console.log('input event, target:', e.target);
+const buttonModeChecker = () => {
   const firstInputValue = topCaption.value;
   const secondInputValue = bottomCaption.value;
   if (firstInputValue || secondInputValue) {
-    submitButton.removeAttribute('disabled');
+    submitButton.textContent = 'Add Caption';
+    app.generateCaptions = false;
   } else {
-    submitButton.setAttribute('disabled', true);
+    submitButton.textContent = 'Generate Random Captions';
+    app.generateCaptions = true;
   }
-});
+}
+
+captionsForm.addEventListener('input', buttonModeChecker);
+
+const getRandomCaption = function () {
+  const randomIndex = Math.floor(Math.random() * app.prewrittenCaptions.length);
+  return app.prewrittenCaptions[randomIndex];
+}
 
 captionsForm.addEventListener('submit', function (event) {
   console.log;
   event.preventDefault();
   const formElement = document.querySelector('form.captions');
 
+  const randomCaption = getRandomCaption();
+  const text0 = app.generateCaptions? randomCaption.text0: topCaption.value
+  const text1 = app.generateCaptions? randomCaption.text1: bottomCaption.value
+
   const url = new URL('https://api.imgflip.com/caption_image');
   const data = new URLSearchParams({
-    text0: topCaption.value,
-    text1: bottomCaption.value,
+    text0,
+    text1,
     template_id: app.selectedMemeId,
     username: userData.username,
     password: userData.password,
@@ -177,15 +199,7 @@ captionsForm.addEventListener('submit', function (event) {
   console.log(topCaption.value);
   console.log(bottomCaption.value);
 
-  // // Example POST method implementation:
-  // for (const pair of new FormData(formElement)) {
-  //   data.append(pair[0], pair[1]);
-  // }
-
-  // console.log(formElement);
-  // const data = new URLSearchParams(new FormData(formElement));
-
-  // add input validation - remove disabled attribute from submit button when either of the caption value is not empty
+ 
   console.log(data);
   // Default options are marked with *
   fetch(url, {
@@ -201,22 +215,22 @@ captionsForm.addEventListener('submit', function (event) {
     .then((jsonResponse) => {
       console.log(jsonResponse);
       const captionedUrl = jsonResponse.data.url;
-      displayModalImage(captionedUrl, 'testtitle');
+      displayModalImage(captionedUrl, app.selectedMemeName);
       app.captionedUrl = captionedUrl;
-      saveButton.removeAttribute('disabled');
+      buttonModeChecker();
     });
 
   clearInput();
-  showSaveButton();
+  // showSaveButton();
 });
 
 // implement download/email functionalities
 
-saveButton.addEventListener('click', function () {
-  // save image file to the local disk with FileSaver.js
-  const fileName = app.selectedMemeName;
-  saveAs(app.captionedUrl, app.selectedMemeName);
-});
+// saveButton.addEventListener('click', function () {
+//   // save image file to the local disk with FileSaver.js
+//   const fileName = app.selectedMemeName;
+//   saveAs(app.captionedUrl, app.selectedMemeName);
+// });
 
 // get response (captioned meme) from API
 

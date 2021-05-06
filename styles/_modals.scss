@@ -40,12 +40,15 @@
     width: 90%;
     height: 40%;
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     img {
       margin: auto;
       max-width: 100%;
       // This will make the image fill up the container
       //   width: 100%;
-      height: 100%;
+      // height: 100%;
       object-fit: contain;
     }
   }

@@ -212,10 +212,30 @@ captionsForm.addEventListener('submit', function (event) {
 
 // implement download/email functionalities
 
-saveButton.addEventListener('click', function () {
-  // save image file to the local disk with FileSaver.js
-  const fileName = app.selectedMemeName;
-  saveAs(app.captionedUrl, app.selectedMemeName);
+saveButton.addEventListener('click', async function () {
+  const captionedImg = document.querySelector('.modalImageContainer img');
+
+  // This used to be the way to get around "Tainted canvases" error, but it's blocked by recent IOS and MacOS
+  // and GET request to the image will fail with the following warning:
+  // The FetchEvent for "https://i.imgflip.com/58jf2t.jpg" resulted in a network error response: an "opaque" response was used for a request whose type is not no-cors
+  captionedImg.crossOrigin = 'anonymous';
+  const canvas = document.createElement('canvas');
+  const context = canvas.getContext('2d');
+
+  canvas.width = captionedImg.width;
+  canvas.height = captionedImg.height;
+  // convert image to canvas because ClipboardItem only supports png now
+  context.drawImage(captionedImg, 0, 0);
+  try {
+    // images coming from cross origin cannot converted to blob
+    // DOMException: Failed to execute 'toBlob' on 'HTMLCanvasElement': Tainted canvases may not be exported.
+    canvas.toBlob((blob) => {
+      navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+      console.log('copied to clipboard!');
+    });
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 // get response (captioned meme) from API

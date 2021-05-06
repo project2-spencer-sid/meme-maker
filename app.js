@@ -11,6 +11,13 @@ const app = {
     md: 815,
     sm: 556,
   },
+  generateCaption: true,
+  captions: [
+    { text0: 'firstCaption 0', text1: 'secondCaption 0' },
+    { text0: 'firstCaption 1', text1: 'secondCaption 1' },
+    { text0: 'firstCaption 2', text1: 'secondCaption 2' },
+    { text0: 'firstCaption 3', text1: 'secondCaption 3' },
+  ],
 };
 
 const galleryUl = document.querySelector('.gallery');
@@ -149,27 +156,44 @@ function hideSaveButton() {
 // display the form to the user
 // get form input values from user and send them to API
 
-// add input validation - remove disabled attribute from submit button when either of the caption value is not empty
-captionsForm.addEventListener('input', (e) => {
-  console.log('input event, target:', e.target);
+// updates submit mode to be either "Generate Captions" or "Random Captions" based on input values
+function updateSubmitMode() {
+  // console.log('input event, target:', e.target);
   const firstInputValue = topCaption.value;
   const secondInputValue = bottomCaption.value;
   if (firstInputValue || secondInputValue) {
-    submitButton.removeAttribute('disabled');
+    // submitButton.removeAttribute('disabled');
+    submitButton.textContent = 'Add Captions';
+    app.generateCaption = false;
   } else {
-    submitButton.setAttribute('disabled', true);
+    // submitButton.setAttribute('disabled', true);
+    submitButton.textContent = 'Random Captions';
+    app.generateCaption = true;
   }
-});
+}
+
+// add input validation - remove disabled attribute from submit button when either of the caption value is not empty
+captionsForm.addEventListener('input', updateSubmitMode);
+
+function getRandomCaption() {
+  const randomIndex = Math.floor(Math.random() * app.captions.length);
+  return app.captions[randomIndex];
+}
 
 captionsForm.addEventListener('submit', function (event) {
   console.log;
   event.preventDefault();
   const formElement = document.querySelector('form.captions');
 
+  const randomCaption = getRandomCaption();
+
+  const text0 = app.generateCaption ? randomCaption.text0 : topCaption.value;
+  const text1 = app.generateCaption ? randomCaption.text1 : bottomCaption.value;
+
   const url = new URL('https://api.imgflip.com/caption_image');
   const data = new URLSearchParams({
-    text0: topCaption.value,
-    text1: bottomCaption.value,
+    text0,
+    text1,
     template_id: app.selectedMemeId,
     username: userData.username,
     password: userData.password,
@@ -204,6 +228,8 @@ captionsForm.addEventListener('submit', function (event) {
       displayModalImage(captionedUrl, 'testtitle');
       app.captionedUrl = captionedUrl;
       saveButton.removeAttribute('disabled');
+      // go back to "generate captions" mode after submit
+      updateSubmitMode();
     });
 
   clearInput();

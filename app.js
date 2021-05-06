@@ -6,6 +6,8 @@ console.log(userData);
 // create a namespace
 const app = {
   memeIndex: 0,
+  selectedMemeName: '',
+  captionedUrl: '',
 };
 
 const galleryUl = document.querySelector('.gallery');
@@ -182,14 +184,21 @@ captionsForm.addEventListener('submit', function (event) {
 saveButton.addEventListener('click', function () {
   // save image file to the local disk with FileSaver.js
   // saveAs(app.captionedUrl, app.selectedMemeName);
-  const saveMeme = () => {
-    saveAs(app.captionedUrl, app.selectedMemeName);
-  };
-  try {
-    saveMeme();
-  } catch (err) {
-    console.log('catch!!');
-  }
+  // const saveMeme = () => {
+  //   saveAs(app.captionedUrl, app.selectedMemeName);
+  // };
+  // try {
+  //   saveMeme();
+  // } catch (err) {
+  //   console.log('catch!!');
+  // }
+
+  const a = document.createElement('a');
+  a.download = app.selectedMemeName;
+  a.rel = 'noopener'; // prevent navigated resource from accessing this document (security measure)
+  a.href = app.captionedUrl;
+  a.target = '_blank'; // open new tab
+  a.click(); // not all browsers support .click()
 });
 
 // get response (captioned meme) from API

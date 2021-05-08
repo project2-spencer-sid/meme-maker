@@ -17,6 +17,7 @@ const app = {
 // Caching all selectors and make them global variables
 const galleryUl = document.querySelector('.gallery');
 const submitModal = document.querySelector('.submitModal');
+const modalImageContainer = document.querySelector('.modalImageContainer');
 const closeButton = document.querySelector('.closeButton');
 const topCaption = document.getElementById('topText');
 const bottomCaption = document.getElementById('bottomText');
@@ -24,6 +25,7 @@ const loadMoreButton = document.querySelector('.loadButton');
 const captionsForm = document.querySelector('.captions');
 const submitButton = document.querySelector('.submitButton');
 const appElement = document.querySelector('.app');
+const mainElement = document.querySelector('main');
 
 // Acquire page width from init function and adjust the number of memes displayed
 app.updateMemesPerPage = (width) => {
@@ -71,6 +73,13 @@ app.displayMemes = (memes) => {
   return currentMemeIndex;
 };
 
+app.getErrorHtml = function (invalidUser) {
+  const errorHtml = `<div>
+    <h2>Failed to access meme database. Please try again later.</h2>
+    </div>`;
+  return errorHtml;
+};
+
 // get data from API (100 memes)
 app.getMemeData = () => {
   const url = 'https://api.imgflip.com/get_memes';
@@ -82,6 +91,12 @@ app.getMemeData = () => {
       app.displayMemes(info.data.memes);
       // cache memes data into namespace
       app.memes = info.data.memes;
+    })
+    .catch((err) => {
+      // Handle API errors
+      console.log(err);
+      const errorHTML = app.getErrorHtml();
+      mainElement.innerHTML = errorHTML;
     });
 };
 
@@ -159,6 +174,12 @@ app.handleFormSubmit = function (event) {
       app.displayModalImage(captionedUrl, app.selectedMemeName);
       app.captionedUrl = captionedUrl;
       app.buttonModeChecker();
+    })
+    .catch((err) => {
+      // Handle API errors
+      console.log(err);
+      const errorHTML = app.getErrorHtml();
+      modalImageContainer.innerHTML = errorHTML;
     });
 
   app.clearInput();

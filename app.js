@@ -94,7 +94,6 @@ app.getMemeData = () => {
     })
     .catch((err) => {
       // Handle API errors
-      console.log(err);
       const errorHTML = app.getErrorHtml();
       mainElement.innerHTML = errorHTML;
     });
@@ -177,7 +176,6 @@ app.handleFormSubmit = function (event) {
     })
     .catch((err) => {
       // Handle API errors
-      console.log(err);
       const errorHTML = app.getErrorHtml();
       modalImageContainer.innerHTML = errorHTML;
     });
